@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 ###meow! :D###
 .idea
+.iml
 
 ### Eclipse ###
 .apt_generated
