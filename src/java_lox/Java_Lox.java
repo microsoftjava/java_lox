@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Java_Lox {
-    //* this is self-explanatory */
+    //* this is self-explanatory
     static boolean hadError = false;
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
-            System.out.println("Usage: java_lox [script]"); //* this tells users to only provide 1 file */
-            System.exit(64);} //* this is the unix exit code for incorrect no. of parameters */
+            System.out.println("Usage: java_lox [script]"); //* this tells users to only provide 1 file
+            System.exit(64);} //* this is the unix exit code for incorrect no. of parameters
         else if (args.length == 1) {
             runFile(args[0]);}
         else {
