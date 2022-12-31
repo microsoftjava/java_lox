@@ -2,6 +2,8 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+###meow! :D###
+.idea
 
 ### Eclipse ###
 .apt_generated
