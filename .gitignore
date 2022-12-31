@@ -3,7 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 ###meow! :D###
-.idea
+.idea/
 .iml
 
 ### Eclipse ###
