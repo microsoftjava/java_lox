@@ -72,7 +72,10 @@ public class Scanner {
             case '\'': string(); break;
             
             default:
-                Java_Lox.error(line, "Unexpected character.");
+                if (isDigit(c)) {
+                    number();}
+                else {
+                    Java_Lox.error(line, "Unexpected character.");}
                 break;}}
     
     //gist this scans a character then sets current to the index of the next character
@@ -115,4 +118,8 @@ public class Scanner {
 
         String value = source.substring(start + 1, current - 1);
         addToken(STRING, value);}
+    
+    //gist this detects digits
+    private boolean isDigit(char c) {
+        return c >= '0' && c <= '9';}
 }
