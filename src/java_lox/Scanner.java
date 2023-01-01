@@ -13,6 +13,27 @@ public class Scanner {
     private int start = 0; //desc this is the first character in the lexeme being scanned
     private int current = 0; //desc this is the character being considered
     private int line = 1; //desc this provides the tokens' line no.s
+    private static final Map<String, Token_Type> keywords;
+
+    static {
+        keywords = new HashMap<>();
+        keywords.put("and",    AND);
+        keywords.put("class",  CLASS);
+        keywords.put("else",   ELSE);
+        keywords.put("false",  FALSE);
+        keywords.put("for",    FOR);
+        keywords.put("fun",    FUN);
+        keywords.put("if",     IF);
+        keywords.put("nil",    NIL);
+        keywords.put("or",     OR);
+        keywords.put("print",  PRINT);
+        keywords.put("return", RETURN);
+        keywords.put("super",  SUPER);
+        keywords.put("this",   THIS);
+        keywords.put("true",   TRUE);
+        keywords.put("var",    VAR);
+        keywords.put("while",  WHILE);
+      }
 
     //gist this is the constructor for Scanner instances
     Scanner(String source) {
