@@ -93,6 +93,7 @@ public class Scanner {
         tokens.add(new Token(type, text, literal, line));}
     
     //gist this compares the current character with the expected character
+    //desc current is incremented after use
     private boolean match(char expected) {
         if (isAtEnd()) return false;
         if (source.charAt(current) != expected) return false;
