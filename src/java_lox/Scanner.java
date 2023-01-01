@@ -30,4 +30,56 @@ public class Scanner {
     //gist this is to know if all the characters in the code have been scanned
     private boolean isAtEnd() {
         return current >= source.length();}
+    
+    //gist this scans a single character and turns it into a token
+    private void scanToken() {
+        char c = advance();
+        switch (c) {
+            case '(': addToken(LEFT_PAREN); break;
+            case ')': addToken(RIGHT_PAREN); break;
+            case '{': addToken(LEFT_BRACE); break;
+            case '}': addToken(RIGHT_BRACE); break;
+            case ',': addToken(COMMA); break;
+            case '.': addToken(DOT); break;
+            case '-': addToken(MINUS); break;
+            case '+': addToken(PLUS); break;
+            case ';': addToken(SEMICOLON); break;
+            case '*': addToken(STAR); break;
+            case '!':
+                addToken(match('=') ? BANG_EQUAL : BANG);
+                break;
+            case '=':
+                addToken(match('=') ? EQUAL_EQUAL : EQUAL);
+                break;
+            case '<':
+                addToken(match('=') ? LESS_EQUAL : LESS);
+                break;
+            case '>':
+                addToken(match('=') ? GREATER_EQUAL : GREATER);
+                break;
+            
+            default:
+                Java_Lox.error(line, "Unexpected character.");
+                break;}}
+    
+    //gist this scans a character then sets current to the index of the next character
+    private char advance() {
+        return source.charAt(current++);}
+    
+    //gist this turns text into tokens
+    private void addToken(Token_Type type) {
+        addToken(type, null);}
+    
+    //gist this turns text into tokens
+    private void addToken(Token_Type type, Object literal) {
+        String text = source.substring(start, current);
+        tokens.add(new Token(type, text, literal, line));}
+    
+    //gist this matches the current character with the expected character
+    private boolean match(char expected) {
+        if (isAtEnd()) return false;
+        if (source.charAt(current) != expected) return false;
+
+        current++;
+        return true;}
 }
