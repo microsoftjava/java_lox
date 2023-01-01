@@ -19,7 +19,7 @@ public class Java_Lox {
         else if (args.length == 1) {
             runFile(args[0]);} //desc this compiles the given file
         else {
-            runPrompt();}} //desc users will input -and have- their code compiled line by line
+            runPrompt();}} //desc users will input their code line by line
 
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path)); //* this gets the bytes in the file
