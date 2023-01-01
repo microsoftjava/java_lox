@@ -63,6 +63,11 @@ public class Scanner {
                 else {
                     addToken(SLASH);}
                 break;
+            case ' ':
+            case '\r':
+            case '\t': break;
+
+            case '\n': line++; break;
             
             default:
                 Java_Lox.error(line, "Unexpected character.");
