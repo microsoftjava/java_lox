@@ -12,6 +12,8 @@ import java.util.Scanner;
 public class Java_Lox {
     //* this is self-explanatory
     static boolean hadError = false;
+    
+    //gist this is the command-line tool
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: java_lox [script]"); //* this tells users to only provide 1 file
@@ -21,6 +23,7 @@ public class Java_Lox {
         else {
             runPrompt();}} //desc users will input their code line by line
 
+    //gist this compiles the given file
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path)); //* this gets the bytes in the file
 
@@ -30,6 +33,7 @@ public class Java_Lox {
         //desc this means the file cannot be compiled
         if (hadError) System.exit(65);}
     
+    //gist this is the interactive prompt for the command-line tool
     private static void runPrompt() throws IOException {
         InputStreamReader input = new InputStreamReader(System.in); //* this is for user input
         BufferedReader reader = new BufferedReader(input); //* this is also for user input
@@ -41,6 +45,7 @@ public class Java_Lox {
             run(line); //* this compiles user input
             hadError = false;}} //desc this ensures that the user can still input code when errors are detected
     
+    //gist this compiles the code
     private static void run(String source) {
         Scanner scanner = new Scanner(source); //* this scans the provided code
 
@@ -51,9 +56,11 @@ public class Java_Lox {
         for (Token token : tokens) { 
             System.out.println(token);}} //* this prints each token in the tokens list
     
+    //gist this is for reporting errors
     static void error(int line, String message) {
         report(line, "", message);} //desc this reports errors
     
+    //gist this generates error messages
     private static void report(int line, String where, String message) {
         //desc this prints an error message
         System.err.println("[line " + line + "] Error" + where + ": " + message);

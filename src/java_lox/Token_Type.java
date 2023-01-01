@@ -1,5 +1,6 @@
 package java_lox;
 
+//gist this is all the tokens that will be used
 enum Token_Type {
     //* Single-character tokens.
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
