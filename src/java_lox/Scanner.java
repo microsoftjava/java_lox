@@ -78,7 +78,8 @@ public class Scanner {
                     Java_Lox.error(line, "Unexpected character.");}
                 break;}}
     
-    //gist this scans a character then sets current to the next character
+    //gist this scans the current character then sets current to the next character
+    //desc current is incremented here after being used
     private char advance() {
         return source.charAt(current++);}
     
@@ -100,9 +101,16 @@ public class Scanner {
         return true;}
     
     //gist this returns the current character
+    //desc this looks ahead 1 character because advance() auto-increments current
     private char peek() {
         if (isAtEnd()) return '\0';
         return source.charAt(current);}
+    
+    //gist this returns the next character
+    //desc this looks ahead 2 characters because advance() auto-increments current
+    private char peekNext() {
+        if (current + 1 >= source.length()) return '\0';
+        return source.charAt(current + 1);}
     
     //gist this adds strings to the list of tokens
     private void string() {
