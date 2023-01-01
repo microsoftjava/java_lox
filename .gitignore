@@ -5,7 +5,7 @@ out/
 ###meow! :D###
 .idea/
 .iml
-.class
+*.class
 
 ### Eclipse ###
 .apt_generated
