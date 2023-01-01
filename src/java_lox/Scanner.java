@@ -74,6 +74,8 @@ public class Scanner {
             default:
                 if (isDigit(c)) {
                     number();}
+                else if (isAlpha(c)) {
+                    identifier();}
                 else {
                     Java_Lox.error(line, "Unexpected character.");}
                 break;}}
@@ -132,6 +134,16 @@ public class Scanner {
     private boolean isDigit(char c) {
         return c >= '0' && c <= '9';}
     
+    //gist this detects letters and underscore
+    private boolean isAlpha(char c) {
+        return (c >= 'a' && c <= 'z') ||
+               (c >= 'A' && c <= 'Z') ||
+                c == '_';}
+    
+    //gist this detects letters, digits and underscore
+    private boolean isAlphaNumeric(char c) {
+        return isAlpha(c) || isDigit(c);}
+    
     //gist this adds numbers to the list of tokens
     private void number() {
         while (isDigit(peek())) advance();
@@ -142,4 +154,10 @@ public class Scanner {
             while (isDigit(peek())) advance();}
         
         addToken(NUMBER, Double.parseDouble(source.substring(start, current)));}
+    
+    //gist this adds special keywords and variables to the list of tokens
+    private void identifier() {
+        while (isAlphaNumeric(peek())) advance();
+
+        addToken(IDENTIFIER);}
 }
