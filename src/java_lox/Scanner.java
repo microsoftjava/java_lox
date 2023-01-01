@@ -68,6 +68,8 @@ public class Scanner {
             case '\t': break;
 
             case '\n': line++; break;
+
+            case '\'': string(); break;
             
             default:
                 Java_Lox.error(line, "Unexpected character.");
@@ -98,4 +100,19 @@ public class Scanner {
     private char peek() {
         if (isAtEnd()) return '\0';
         return source.charAt(current);}
+    
+    //gist this adds strings to the list of tokens
+    private void string() {
+        while (peek() != '\'' && !isAtEnd()) {
+            if (peek() == '\n') line++;
+            advance();}
+        
+        if (isAtEnd()) {
+            Java_Lox.error(line, "Unterminated string.");
+            return;}
+        
+        advance();
+
+        String value = source.substring(start + 1, current - 1);
+        addToken(STRING, value);}
 }
