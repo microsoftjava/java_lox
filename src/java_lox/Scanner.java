@@ -57,6 +57,12 @@ public class Scanner {
             case '>':
                 addToken(match('=') ? GREATER_EQUAL : GREATER);
                 break;
+            case '/':
+                if (match('/')) {
+                    while (peek() != '\n' && !isAtEnd()) advance();}
+                else {
+                    addToken(SLASH);}
+                break;
             
             default:
                 Java_Lox.error(line, "Unexpected character.");
@@ -75,11 +81,16 @@ public class Scanner {
         String text = source.substring(start, current);
         tokens.add(new Token(type, text, literal, line));}
     
-    //gist this matches the current character with the expected character
+    //gist this compares the next character with the expected character
     private boolean match(char expected) {
         if (isAtEnd()) return false;
         if (source.charAt(current) != expected) return false;
 
         current++;
         return true;}
+    
+    //gist this returns the next character
+    private char peek() {
+        if (isAtEnd()) return '\0';
+        return source.charAt(current);}
 }
