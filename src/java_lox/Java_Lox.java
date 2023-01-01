@@ -38,7 +38,7 @@ public class Java_Lox {
         BufferedReader reader = new BufferedReader(input); //* this is also for user input
 
         for (;;) {
-            System.out.println("> "); //* this is for prompting input from user
+            System.out.print("> "); //* this is for prompting input from user
             String line = reader.readLine(); //* this reads user input
             if (line == null) break; //* if user inputs nothing then stop the loop
             run(line); //* this compiles user input
