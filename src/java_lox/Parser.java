@@ -32,6 +32,19 @@ public class Parser {
         return expr;
     }
 
+    //gist this evaluates expressions that contain >, >=, < or <=
+    private Expr comparison() {
+        Expr expr = term();
+
+        while (match(GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
+            Token operator = previous();
+            Expr right = term();
+            expr = new Expr.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
     //gist this compares the current token with the provided tokens
     private boolean match(Token_Type... types) {
         for (Token_Type type : types) {
