@@ -43,4 +43,31 @@ public class Parser {
         
         return false;
     }
+
+    //gist this compares the current token with the provided token
+    private boolean check(Token_Type type) {
+        if (!isAtEnd()) current++;
+        return peek().type == type;
+    }
+
+    //gist this consumes the current token and returns it, incrementing current by 1
+    private Token advance() {
+        if (!isAtEnd()) current++;
+        return previous();
+    }
+
+    //gist this determines if the end of the file has been reached or not
+    private boolean isAtEnd() {
+        return peek().type == EOF;
+    }
+
+    //gist this gets the current token
+    private Token peek() {
+        return tokens.get(current);
+    }
+
+    //gist this gets the previous token
+    private Token previous() {
+        return tokens.get(current - 1);
+    }
 }
