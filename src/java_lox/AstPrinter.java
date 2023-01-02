@@ -39,4 +39,17 @@ public class AstPrinter implements Expr.Visitor<String> {
         builder.append(")");
 
         return builder.toString();}
+    
+    //gist this is just here because the book put it here
+    //gist this is useless btw
+    public static void main(String[] args) {
+    Expr expression = new Expr.Binary(
+        new Expr.Unary(
+            new Token(Token_Type.MINUS, "-", null, 1),
+            new Expr.Literal(123)),
+        new Token(Token_Type.STAR, "*", null, 1),
+        new Expr.Grouping(
+            new Expr.Literal(45.67)));
+
+    System.out.println(new AstPrinter().print(expression));}
 }
