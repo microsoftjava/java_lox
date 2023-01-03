@@ -1,5 +1,5 @@
 package java_lox;
-
+/*
 //gist this is to make sure the expressions are correct
 public class AstPrinter implements Expr.Visitor<String> {
     //gist this returns the given expression but in brackets
@@ -59,4 +59,4 @@ public class AstPrinter implements Expr.Visitor<String> {
 
     System.out.println(new AstPrinter().print(expression));
     }
-}
+} */
