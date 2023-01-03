@@ -6,6 +6,9 @@ import static java_lox.Token_Type.*;
 
 //gist this is for parsing
 public class Parser {
+    //gist this is for parsing errors
+    private static class ParseError extends RuntimeException {}
+
     private final List<Token> tokens;
     private int current = 0;
 
@@ -143,5 +146,11 @@ public class Parser {
     //gist this gets the previous token
     private Token previous() {
         return tokens.get(current - 1);
+    }
+
+    //gist this reports errors
+    private ParseError error(Token token, String message) {
+        Java_Lox.error(token, message);
+        return new ParseError();
     }
 }

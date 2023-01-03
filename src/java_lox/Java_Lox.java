@@ -69,4 +69,12 @@ public class Java_Lox {
         System.err.println("[line " + line + "] Error" + where + ": " + message);
         hadError = true; //* this is self-explanatory
     }
+
+    //gist this is also for reporting errors
+    static void error(Token token, String message) {
+        if (token.type == Token_Type.EOF)
+        {report(token.line, " at end", message);}
+        else
+        {report(token.line, " at '" + token.lexeme + "'", message);}
+    }
 }
