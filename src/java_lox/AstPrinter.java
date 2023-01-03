@@ -10,23 +10,27 @@ public class AstPrinter implements Expr.Visitor<String> {
     @Override
     public String visitBinaryExpr(Expr.Binary expr) {
         return parenthesize(expr.operator.lexeme,
-                            expr.left, expr.right);}
+                            expr.left, expr.right);
+    }
 
     //gist this puts groupings in brackets
     @Override
     public String visitGroupingExpr(Expr.Grouping expr) {
-        return parenthesize("group", expr.expression);}
+        return parenthesize("group", expr.expression);
+    }
 
     //gist this puts literals in brackets
     @Override
     public String visitLiteralExpr(Expr.Literal expr) {
         if (expr.value == null) return "nil";
-        return expr.value.toString();}
+        return expr.value.toString();
+    }
 
     //gist this puts unary expressions in brackets
     @Override
     public String visitUnaryExpr(Expr.Unary expr) {
-        return parenthesize(expr.operator.lexeme, expr.right);}
+        return parenthesize(expr.operator.lexeme, expr.right);
+    }
     
     //gist this puts the given expression in brackets
     private String parenthesize(String name, Expr... exprs) {
@@ -35,10 +39,12 @@ public class AstPrinter implements Expr.Visitor<String> {
         builder.append("(").append(name);
         for (Expr expr : exprs) {
             builder.append(" ");
-            builder.append(expr.accept(this));}
+            builder.append(expr.accept(this));
+        }
         builder.append(")");
 
-        return builder.toString();}
+        return builder.toString();
+    }
     
     //gist this is just here because the book put it here
     //gist this is useless btw
@@ -51,5 +57,6 @@ public class AstPrinter implements Expr.Visitor<String> {
         new Expr.Grouping(
             new Expr.Literal(45.67)));
 
-    System.out.println(new AstPrinter().print(expression));}
+    System.out.println(new AstPrinter().print(expression));
+    }
 }
