@@ -154,7 +154,7 @@ public class Parser {
 
     //gist this compares the current token with the provided token
     private boolean check(Token_Type type) {
-        if (isAtEnd()) return false;
+        if (isAtEnd()) return false;//gist this is where I found the source of the malding
         return peek().type == type;
     }
 
