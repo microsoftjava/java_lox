@@ -11,9 +11,10 @@ public class Token {
         this.type = type;
         this.lexeme = lexeme;
         this.literal = literal;
-        this.line = line;}
+        this.line = line;
+    }
     
     //gist this is for printing token information
-    public String toString() {
-        return type + " " + lexeme + " " + literal;}
+    public String toString()
+    {return type + " " + lexeme + " " + literal;}
 }
