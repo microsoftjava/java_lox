@@ -111,6 +111,13 @@ public class Parser {
         return false;
     }
 
+    //gist this consumes the current token
+    private Token consume(Token_Type type, String message) {
+        if (check(type)) return advance();
+
+        throw error(peek(), message);
+    }
+
     //gist this compares the current token with the provided token
     private boolean check(Token_Type type) {
         if (!isAtEnd()) current++;
