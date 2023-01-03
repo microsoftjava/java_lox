@@ -36,21 +36,23 @@ public class Scanner {
       }
 
     //gist this is the constructor for Scanner instances
-    Scanner(String source) {
-        this.source = source;}
+    Scanner(String source)
+    {this.source = source;}
     
     //gist this turns the whole code into tokens
     List<Token> scanTokens() {
         while (!isAtEnd()) {
             start = current;
-            scanToken();}
+            scanToken();
+        }
         
         tokens.add(new Token(EOF, "", null, line));
-        return tokens;}
+        return tokens;
+    }
     
     //gist this is to know if all the characters in the code have been scanned
-    private boolean isAtEnd() {
-        return current >= source.length();}
+    private boolean isAtEnd()
+    {return current >= source.length();}
     
     //gist this scans a single character and turns it into a token
     private void scanToken() {
@@ -79,10 +81,8 @@ public class Scanner {
                 addToken(match('=') ? GREATER_EQUAL : GREATER);
                 break;
             case '/':
-                if (match('/')) {
-                    while (peek() != '\n' && !isAtEnd()) advance();}
-                else {
-                    addToken(SLASH);}
+                if (match('/')) {while (peek() != '\n' && !isAtEnd()) advance();}
+                else {addToken(SLASH);}
                 break;
             case ' ':
             case '\r':
@@ -93,27 +93,27 @@ public class Scanner {
             case '\'': string(); break;
             
             default:
-                if (isDigit(c)) {
-                    number();}
-                else if (isAlpha(c)) {
-                    identifier();}
-                else {
-                    Java_Lox.error(line, "Unexpected character.");}
-                break;}}
+                if (isDigit(c)) {number();}
+                else if (isAlpha(c)) {identifier();}
+                else {Java_Lox.error(line, "Unexpected character.");}
+                break;
+            }
+    }
     
     //gist this scans the current character then sets current to the next character
     //desc current is incremented here after being used
-    private char advance() {
-        return source.charAt(current++);}
+    private char advance()
+    {return source.charAt(current++);}
     
     //gist this turns text into tokens
-    private void addToken(Token_Type type) {
-        addToken(type, null);}
+    private void addToken(Token_Type type)
+    {addToken(type, null);}
     
     //gist this turns text into tokens
     private void addToken(Token_Type type, Object literal) {
         String text = source.substring(start, current);
-        tokens.add(new Token(type, text, literal, line));}
+        tokens.add(new Token(type, text, literal, line));
+    }
     
     //gist this compares the current character with the expected character
     //desc current is incremented after use
@@ -122,48 +122,55 @@ public class Scanner {
         if (source.charAt(current) != expected) return false;
 
         current++;
-        return true;}
+        return true;
+    }
     
     //gist this returns the current character
     //desc this looks ahead 1 character because advance() auto-increments current
     private char peek() {
         if (isAtEnd()) return '\0';
-        return source.charAt(current);}
+        return source.charAt(current);
+    }
     
     //gist this returns the next character
     //desc this looks ahead 2 characters because advance() auto-increments current
     private char peekNext() {
         if (current + 1 >= source.length()) return '\0';
-        return source.charAt(current + 1);}
+        return source.charAt(current + 1);
+    }
     
     //gist this adds strings to the list of tokens
     private void string() {
         while (peek() != '\'' && !isAtEnd()) {
             if (peek() == '\n') line++;
-            advance();}
+            advance();
+        }
         
         if (isAtEnd()) {
             Java_Lox.error(line, "Unterminated string.");
-            return;}
+            return;
+        }
         
         advance();
 
         String value = source.substring(start + 1, current - 1);
-        addToken(STRING, value);}
+        addToken(STRING, value);
+    }
     
     //gist this detects digits
-    private boolean isDigit(char c) {
-        return c >= '0' && c <= '9';}
+    private boolean isDigit(char c)
+    {return c >= '0' && c <= '9';}
     
     //gist this detects letters and underscore
     private boolean isAlpha(char c) {
         return (c >= 'a' && c <= 'z') ||
                (c >= 'A' && c <= 'Z') ||
-                c == '_';}
+                c == '_';
+    }
     
     //gist this detects letters, digits and underscore
-    private boolean isAlphaNumeric(char c) {
-        return isAlpha(c) || isDigit(c);}
+    private boolean isAlphaNumeric(char c)
+    {return isAlpha(c) || isDigit(c);}
     
     //gist this adds numbers to the list of tokens
     private void number() {
@@ -172,9 +179,11 @@ public class Scanner {
         if (peek() == '.' && isDigit(peekNext())) {
             advance();
 
-            while (isDigit(peek())) advance();}
+            while (isDigit(peek())) advance();
+        }
         
-        addToken(NUMBER, Double.parseDouble(source.substring(start, current)));}
+        addToken(NUMBER, Double.parseDouble(source.substring(start, current)));
+    }
     
     //gist this adds special keywords and variables to the list of tokens
     private void identifier() {
@@ -183,5 +192,6 @@ public class Scanner {
         String text = source.substring(start, current);
         Token_Type type = keywords.get(text);
         if (type == null) type = IDENTIFIER;
-        addToken(type);}
+        addToken(type);
+    }
 }
