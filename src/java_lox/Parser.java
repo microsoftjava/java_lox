@@ -39,6 +39,18 @@ public class Parser {
         return expressionStatement();
     }
 
+    private Stmt printStatement() {
+        Expr value = expression();
+        consume(SEMICOLON, "Expect ';' after value.");
+        return new Stmt.Print(value);
+    }
+
+    private Stmt expressionStatement() {
+        Expr expr = expression();
+        consume(SEMICOLON, "Expect ';' after expression.");
+        return new Stmt.Expression(expr);
+    }
+
     //gist this evaluates expressions that contain != or ==
     private Expr equality() {
         Expr expr = comparison();

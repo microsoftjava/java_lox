@@ -56,11 +56,11 @@ public class Java_Lox {
 
         List<Token> tokens = scanner.scanTokens(); //* this turns the code into a list of tokens
         Parser parser = new Parser(tokens);
-        Expr expression = parser.parse();
+        List<Stmt> statements = parser.parse();
 
         if (hadError) return;
 
-        interpreter.interpret(expression);
+        interpreter.interpret(statements);
     }
     
     //gist this is for reporting errors
