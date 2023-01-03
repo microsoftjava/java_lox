@@ -1,6 +1,7 @@
 package java_lox;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import static java_lox.Token_Type.*;
 
@@ -18,16 +19,24 @@ public class Parser {
     }
 
     //gist this is for parsing
-    Expr parse() {
-        try
-        {return expression();}
-        catch (ParseError error)
-        {return null;}
+    List<Stmt> parse() {
+        List<Stmt> statements = new ArrayList<>();
+        while (!isAtEnd()) {
+            statements.add(statement());
+        }
+    
+        return statements; 
     }
 
     //gist this is for expressions
     private Expr expression() {
         return equality();
+    }
+
+    private Stmt statement() {
+        if (match(PRINT)) return printStatement();
+    
+        return expressionStatement();
     }
 
     //gist this evaluates expressions that contain != or ==
