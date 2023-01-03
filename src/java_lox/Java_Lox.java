@@ -9,8 +9,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Java_Lox {
+    private static final Interpreter interpreter = new Interpreter();
     //* this is self-explanatory
     static boolean hadError = false;
+    static boolean hadRuntimeError = false;
     
     //gist this is the command-line tool
     public static void main(String[] args) throws IOException {
@@ -31,6 +33,7 @@ public class Java_Lox {
         
         //desc this means the file cannot be compiled
         if (hadError) System.exit(65);
+        if (hadRuntimeError) System.exit(70);
     }
     
     //gist this is the interactive prompt for the command-line tool
@@ -57,7 +60,7 @@ public class Java_Lox {
 
         if (hadError) return;
 
-        System.out.println(new AstPrinter().print(expression));
+        interpreter.interpret(expression);
     }
     
     //gist this is for reporting errors
@@ -78,5 +81,11 @@ public class Java_Lox {
         {report(token.line, " at end", message);}
         else
         {report(token.line, " at '" + token.lexeme + "'", message);}
+    }
+
+    static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() +
+            "\n[line " + error.token.line + "]");
+        hadRuntimeError = true;
     }
 }
