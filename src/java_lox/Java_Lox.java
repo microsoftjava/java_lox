@@ -16,11 +16,11 @@ public class Java_Lox {
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: java_lox [script]"); //* this tells users to only provide 1 file
-            System.exit(64);} //desc this is the unix exit code for incorrect no. of parameters
-        else if (args.length == 1) {
-            runFile(args[0]);} //desc this compiles the given file
-        else {
-            runPrompt();}} //desc users will input their code line by line
+            System.exit(64); //desc this is the unix exit code for incorrect no. of parameters
+        }
+        else if (args.length == 1) {runFile(args[0]);} //desc this compiles the given file
+        else {runPrompt();} //desc users will input their code line by line
+    }
 
     //gist this compiles the given file
     private static void runFile(String path) throws IOException {
@@ -30,7 +30,8 @@ public class Java_Lox {
         run(new String(bytes, Charset.defaultCharset()));
         
         //desc this means the file cannot be compiled
-        if (hadError) System.exit(65);}
+        if (hadError) System.exit(65);
+    }
     
     //gist this is the interactive prompt for the command-line tool
     private static void runPrompt() throws IOException {
@@ -42,26 +43,30 @@ public class Java_Lox {
             String line = reader.readLine(); //* this reads user input
             if (line == null) break; //* if user inputs nothing then stop the loop
             run(line); //* this compiles user input
-            hadError = false;}} //desc this ensures that the user can still input code when errors are detected
+            hadError = false; //desc this ensures that the user can still input code when errors are detected
+        }
+    }
     
     //gist this compiles the code
     private static void run(String source) {
         Scanner scanner = new Scanner(source); //* this scans the provided code
 
-        //todo need to implement Token type and scanTokens() function
+        //// need to implement Token type and scanTokens() function
         List<Token> tokens = scanner.scanTokens(); //* this turns the code into a list of tokens
 
-        //todo need to implement Token type
-        for (Token token : tokens) { 
-            System.out.println(token);}} //* this prints each token in the tokens list
+        //// need to implement Token type
+        for (Token token : tokens) {System.out.println(token);} //* this prints each token in the tokens list
+    }
     
     //gist this is for reporting errors
     static void error(int line, String message) {
-        report(line, "", message);} //desc this reports errors
+        report(line, "", message); //desc this reports errors
+    }
     
     //gist this generates error messages
     private static void report(int line, String where, String message) {
         //desc this prints an error message
         System.err.println("[line " + line + "] Error" + where + ": " + message);
-        hadError = true;} //* this is self-explanatory
+        hadError = true; //* this is self-explanatory
+    }
 }
