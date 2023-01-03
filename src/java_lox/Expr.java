@@ -4,6 +4,7 @@ package java_lox;
 abstract class Expr {
     //gist this is for interactions between expressions
     interface Visitor<R> {
+        R visitAssignExpr(Assign expr);
         R visitBinaryExpr(Binary expr);
         R visitGroupingExpr(Grouping expr);
         R visitLiteralExpr(Literal expr);
@@ -13,6 +14,21 @@ abstract class Expr {
 
     //gist this is also for interactions between expressions
     abstract <R> R accept(Visitor<R> visitor);
+
+    static class Assign extends Expr {
+        Assign(Token name, Expr value) {
+            this.name = name;
+            this.value = value;
+        }
+    
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitAssignExpr(this);
+        }
+    
+        final Token name;
+        final Expr value;
+    }
 
     //gist this is for binary expressions
     static class Binary extends Expr {
