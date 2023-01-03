@@ -51,11 +51,13 @@ public class Java_Lox {
     private static void run(String source) {
         Scanner scanner = new Scanner(source); //* this scans the provided code
 
-        //// need to implement Token type and scanTokens() function
         List<Token> tokens = scanner.scanTokens(); //* this turns the code into a list of tokens
+        Parser parser = new Parser(tokens);
+        Expr expression = parser.parse();
 
-        //// need to implement Token type
-        for (Token token : tokens) {System.out.println(token);} //* this prints each token in the tokens list
+        if (hadError) return;
+
+        System.out.println(new AstPrinter().print(expression));
     }
     
     //gist this is for reporting errors
