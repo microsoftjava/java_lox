@@ -154,7 +154,7 @@ public class Parser {
 
     //gist this compares the current token with the provided token
     private boolean check(Token_Type type) {
-        if (!isAtEnd()) current++;
+        if (isAtEnd()) return false;
         return peek().type == type;
     }
 
