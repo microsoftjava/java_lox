@@ -158,6 +158,19 @@ public class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Void visitLogicalExpr(Expr.Logical expr) {
+        resolve(expr.left);
+        resolve(expr.right);
+        return null;
+    }
+
+    @Override
+    public Void visitUnaryExpr(Expr.Unary expr) {
+        resolve(expr.right);
+        return null;
+    }
+
+    @Override
     public Void visitVariableExpr(Expr.Variable expr) {
         if (!scopes.isEmpty() &&
             scopes.peek().get(expr.name.lexeme) == Boolean.FALSE) {
