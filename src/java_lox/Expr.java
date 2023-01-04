@@ -1,11 +1,14 @@
 package java_lox;
 
+import java.util.List;
+
 //gist this is for expressions
 abstract class Expr {
     //gist this is for interactions between expressions
     interface Visitor<R> {
         R visitAssignExpr(Assign expr);
         R visitBinaryExpr(Binary expr);
+        R visitCallExpr(Call expr);
         R visitGroupingExpr(Grouping expr);
         R visitLiteralExpr(Literal expr);
         R visitLogicalExpr(Logical expr);
@@ -42,6 +45,23 @@ abstract class Expr {
         @Override
         <R> R accept(Visitor<R> visitor)
         {return visitor.visitBinaryExpr(this);}
+    }
+
+    static class Call extends Expr {
+        Call(Expr callee, Token paren, List<Expr> arguments) {
+            this.callee = callee;
+            this.paren = paren;
+            this.arguments = arguments;
+        }
+    
+        @Override
+        <R> R accept(Visitor<R> visitor) {
+            return visitor.visitCallExpr(this);
+        }
+    
+        final Expr callee;
+        final Token paren;
+        final List<Expr> arguments;
     }
 
     //gist this is for groupings
